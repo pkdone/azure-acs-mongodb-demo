@@ -11,18 +11,18 @@ For further background information on what these scripts and resource files do, 
 
 Ensure the following dependencies are already fulfilled on your host Linux/Windows/Mac Workstation/Laptop:
 
-1. An account has been registered with Microsoft Azure. You can sign up to a [free trial](https://azure.microsoft.com/free) for Azure. Note: The free trial places some restrictions on account resource quotas, in particular, restricting the total number of CPU cores that can be provisiond, to 4.
+1. An account has been registered with Microsoft Azure. You can sign up to a [free trial](https://azure.microsoft.com/free) for Azure. Note: The free trial places some restrictions on account resource quotas, in particular, restricting the total number of CPU cores that can be provisioned, to 4.
 2. Azures’s client command line tool [az](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli) has been installed. 
-3. Your local workstation has had the the Kubernetes command tool (“kubectl”) installed and this tool is authenticated to access the appropriate Azure account:
+3. Your local workstation has the Kubernetes command tool (“kubectl”) installed and this tool is authenticated to access the appropriate Azure account:
 
     ```
     $ az acs kubernetes install-cli
-    $ az login   (when promoted follow the instructions to sign in via a browser to authenticate the CLI)
+    $ az login   (when prompted, follow the instructions to sign in via a browser, to authenticate the CLI)
     ```
 
 ### 1.2 Main Deployment Steps 
 
-1. To create a Kubernetes cluster, define the appropriate storage for use by PersistentVolumes, and deploy the MongoDB Service (including the StatefulSet running "mongod" containers), via a command-line terminal/shell, execute the following:
+1. To create a Kubernetes cluster and deploy the MongoDB Service (including the StatefulSet running "mongod" containers), via a command-line terminal/shell, execute the following:
 
     ```
     $ cd scripts
@@ -45,7 +45,7 @@ You should now have a MongoDB Replica Set initialised, secured and running in a 
 
 You can also view the the state of the deployed environment via the [Microsoft Azure Dashboard](https://portal.azure.com).
 
-**Note:** To specify an alternative location to deploy to, change the value of the variable "LOCATN" at the top of the file "generate.sh". You can first view the list of available locatons by running the command: `$ az account list-locations`
+**Note:** To specify an alternative Azure location to deploy to (rather than "uksouth"), change the value of the variable "LOCATN" at the top of the file "generate.sh". You can first view the list of available locations by running the command: `$ az account list-locations`
 
 
 ### 1.3 Example Tests To Run To Check Things Are Working
@@ -123,5 +123,5 @@ It is also worth checking in the [Microsoft Azure Dashboard](https://portal.azur
 
 ### 2.2 Factors To Be Potentially Addressed In The Future By This Project
 
-* Leveraging XFS filesystem for data file storage to improve performance. _The ability for dynamically provisioned PersistentVolumes to define the "fstype" field, to declare that "XFS" should be used, is [not scheduled to be supported until Kubernetes version 1.8](https://github.com/kubernetes/kubernetes/pull/45345). An alternative approach would be to first create provider specific storage disks based on XFS directly, and then explicity declare PersistentVolumes based on this storage. However, for Azure/ACS, currently [Virtual Hard Drive (VHD) Blobs](https://docs.microsoft.com/en-us/azure/virtual-machines/scripts/virtual-machines-linux-cli-sample-create-vm-vhd) must be created for this, which requires generating and uploading, from the client, large blog images (eg. 3 x 10GB images) as part of the deployment process. For demo purposes, this is way too cumbersome and time-consuming, and as a result this does not including ensuring that the underlying storage for Mongod containers, is XFS based._
+* Leveraging XFS filesystem for data file storage to improve performance. _The ability for dynamically provisioned PersistentVolumes to define the "fstype" field, to declare that "XFS" should be used, is [not scheduled to be supported until Kubernetes version 1.8](https://github.com/kubernetes/kubernetes/pull/45345). An alternative approach would be to first create provider specific storage disks based on XFS directly, and then explicitly declare PersistentVolumes based on this storage. However, for Azure/ACS, currently [Virtual Hard Drive (VHD) Blobs](https://docs.microsoft.com/en-us/azure/virtual-machines/scripts/virtual-machines-linux-cli-sample-create-vm-vhd) must be created for this, which requires generating and uploading, from the client, large blog images (eg. 3 x 10GB images) as part of the deployment process. For demo purposes, this is way too cumbersome and time-consuming. As a result this project does not cater for ensuring that the underlying storage for Mongod containers, is XFS based._
 
