@@ -13,7 +13,7 @@ Ensure the following dependencies are already fulfilled on your host Linux/Windo
 
 1. An account has been registered with Microsoft Azure. You can sign up to a [free trial](https://azure.microsoft.com/free) for Azure. Note: The free trial places some restrictions on account resource quotas, in particular, restricting the total number of CPU cores that can be provisioned, to 4.
 2. Azures’s client command line tool [az](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli) has been installed. 
-3. Your local workstation has the Kubernetes command tool (“kubectl”) installed and this tool is authenticated to access the appropriate Azure account:
+3. Your local workstation has the Kubernetes command tool (“kubectl”) installed and the 'az' tool is authenticated to access the appropriate Azure account:
 
     ```
     $ az acs kubernetes install-cli
